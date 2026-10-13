@@ -25,6 +25,18 @@ class CompensationPackage < ApplicationRecord
     compensation_items.where(category: category).sum(:amount)
   end
 
+  def as_json(options = {})
+    {
+      id: id,
+      currency: currency,
+      effective_from: effective_from,
+      effective_to: effective_to,
+      change_reason: change_reason,
+      total_annual_compensation: total_compensation.to_s("F"),
+      items: compensation_items.map(&:as_json)
+    }
+  end
+
   private
 
   def effective_period_does_not_overlap

@@ -26,4 +26,14 @@ class CompensationItem < ApplicationRecord
 
   validates :amount,
             numericality: { greater_than_or_equal_to: 0 }
+
+
+  def as_json(options = {})
+    {
+      id: id,
+      component_type: component_type,
+      category: category,
+      amount: amount.to_s("F")
+    }
+  end
 end

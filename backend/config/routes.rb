@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   namespace :api do
-    resources :employees, only: [:index]
+    resources :employees, only: [:index, :show] do
+      resources :compensation_packages,
+                only: [:index, :create],
+                module: :employees
+    end
   end
 end
