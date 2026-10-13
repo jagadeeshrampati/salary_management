@@ -30,4 +30,19 @@ class Employee < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def as_json(options = {})
+    {
+      id: id,
+      employee_code: employee_code,
+      first_name: first_name,
+      last_name: last_name,
+      full_name: full_name,
+      email: email,
+      country_code: country_code,
+      department: department,
+      job_title: job_title,
+      status: status
+    }
+  end
 end
