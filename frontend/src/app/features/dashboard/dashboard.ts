@@ -6,7 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterLink } from '@angular/router';
 import { HeadcountDepartment } from './components/headcount-department/headcount-department';
 import { HeadcountCountry } from './components/headcount-country/headcount-country';
 import { AverageCompensation } from './components/average-compensation/average-compensation';
@@ -18,7 +17,6 @@ import { DashboardResponse } from './dashboard.model';
   imports: [
     DatePipe,
     DecimalPipe,
-    RouterLink,
     MatButtonModule,
     MatCardModule,
     MatIconModule,

@@ -1,0 +1,171 @@
+<div class="employees-page">
+  <section class="page-heading">
+    <div>
+      <h1>Employees</h1>
+      <p>Search and manage your global workforce.</p>
+    </div>
+  </section>
+
+  <section class="filters">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search employees</mat-label>
+      <input
+        matInput
+        [(ngModel)]="search"
+        (keyup.enter)="applyFilters()"
+        placeholder="Name, employee code, or email"
+      />
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Country</mat-label>
+      <mat-select [(ngModel)]="countryCode" panelClass="employee-select-panel">
+        <mat-option value="">All countries</mat-option>
+        @for (country of countries; track country.code) {
+          <mat-option [value]="country.code">
+            {{ country.name }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Department</mat-label>
+      <mat-select [(ngModel)]="department" panelClass="employee-select-panel">
+        <mat-option value="">All departments</mat-option>
+        @for (item of departments; track item) {
+          <mat-option [value]="item">{{ item }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="status" panelClass="employee-select-panel">
+        <mat-option value="">All statuses</mat-option>
+        <mat-option value="active">Active</mat-option>
+        <mat-option value="on_leave">On leave</mat-option>
+        <mat-option value="terminated">Terminated</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="filter-actions">
+      <button mat-flat-button color="primary" class="apply-button" (click)="applyFilters()">
+        Apply
+      </button>
+      <button mat-button class="clear-button" (click)="clearFilters()">Clear</button>
+    </div>
+  </section>
+
+  <section class="table-card">
+    <div class="table-heading">
+      <h2>Employee Directory</h2>
+      <span>{{ total | number }} employees</span>
+    </div>
+
+    @if (loading()) {
+      <div class="state-container">
+        <mat-spinner diameter="36" />
+        <span>Loading employees...</span>
+      </div>
+    } @else if (errorMessage()) {
+      <div class="state-container error-state">
+        <p>{{ errorMessage() }}</p>
+        <button mat-flat-button color="primary" (click)="loadEmployees()">
+          Retry
+        </button>
+      </div>
+    } @else {
+      <div class="table-scroll">
+        <table
+          mat-table
+          [dataSource]="employees()"
+          [trackBy]="trackEmployee"
+          matSort
+          [matSortActive]="sortBy"
+          [matSortDirection]="direction"
+          (matSortChange)="onSortChange($event)"
+        >
+          <ng-container matColumnDef="employee_code">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Employee ID
+            </th>
+            <td mat-cell *matCellDef="let employee">
+              {{ employee.employee_code }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="full_name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="first_name">
+              Employee
+            </th>
+            <td mat-cell *matCellDef="let employee">
+              <div class="employee-name">{{ employee.full_name }}</div>
+              <div class="employee-email">{{ employee.email }}</div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="department">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Department
+            </th>
+            <td mat-cell *matCellDef="let employee">
+              {{ employee.department }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="country_code">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Country
+            </th>
+            <td mat-cell *matCellDef="let employee">
+              {{ employee.country_code }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="job_title">
+            <th mat-header-cell *matHeaderCellDef>Job Title</th>
+            <td mat-cell *matCellDef="let employee">
+              {{ employee.job_title }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Status
+            </th>
+            <td mat-cell *matCellDef="let employee">
+              <span
+                class="status"
+                [class.active]="employee.status === 'active'"
+                [class.on-leave]="employee.status === 'on_leave'"
+                [class.terminated]="employee.status === 'terminated'"
+              >
+                {{ employee.status.replace('_', ' ') }}
+              </span>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell empty-cell" colspan="6">
+              No employees found.
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <mat-paginator
+        [length]="total"
+        [pageIndex]="pageIndex"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[10, 20, 50, 100]"
+        (page)="onPageChange($event)"
+        showFirstLastButtons
+      />
+    }
+  </section>
+</div>

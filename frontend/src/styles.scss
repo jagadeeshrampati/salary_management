@@ -7,3 +7,76 @@ body {
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+/* Employee dropdown panel */
+.employee-select-panel {
+  background-color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* Dropdown options */
+.employee-select-panel .mat-mdc-option {
+  background-color: #ffffff;
+  color: #334155;
+  min-height: 48px;
+  font-size: 14px;
+  transition: background-color 150ms ease;
+}
+
+/* Hover effect */
+.employee-select-panel .mat-mdc-option:hover {
+  background-color: #eaf3ff !important;
+}
+
+/* Keyboard focus */
+.employee-select-panel .mat-mdc-option:focus,
+.employee-select-panel .mat-mdc-option.mat-mdc-option-active {
+  background-color: #eaf3ff !important;
+}
+
+/* Selected option */
+.employee-select-panel .mat-mdc-option.mdc-list-item--selected {
+  background-color: #dbeafe !important;
+  color: #1565c0;
+}
+
+/* Hover over a selected option */
+.employee-select-panel .mat-mdc-option.mdc-list-item--selected:hover {
+  background-color: #bfdbfe !important;
+}
+
+
+/* Paginator page-size dropdown panel */
+.cdk-overlay-pane .mat-mdc-select-panel {
+  background-color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* Dropdown options */
+.cdk-overlay-pane .mat-mdc-select-panel .mat-mdc-option {
+  background-color: #ffffff !important;
+  color: #334155;
+  transition: background-color 150ms ease;
+}
+
+/* Hover effect */
+.cdk-overlay-pane .mat-mdc-select-panel .mat-mdc-option:hover {
+  background-color: #eaf3ff !important;
+}
+
+/* Keyboard focus */
+.cdk-overlay-pane .mat-mdc-select-panel .mat-mdc-option:focus,
+.cdk-overlay-pane .mat-mdc-select-panel .mat-mdc-option.mat-mdc-option-active {
+  background-color: #eaf3ff !important;
+}
+
+/* Selected page-size option */
+.cdk-overlay-pane .mat-mdc-select-panel .mat-mdc-option.mdc-list-item--selected {
+  background-color: #dbeafe !important;
+  color: #1565c0;
+}
+
+/* Hover over selected option */
+.cdk-overlay-pane .mat-mdc-select-panel .mat-mdc-option.mdc-list-item--selected:hover {
+  background-color: #bfdbfe !important;
+}

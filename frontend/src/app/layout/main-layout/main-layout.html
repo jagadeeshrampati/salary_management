@@ -1,0 +1,52 @@
+<mat-sidenav-container class="app-layout">
+  <mat-sidenav class="app-sidebar" mode="side" opened>
+    <div class="brand">
+      <div class="brand-logo">A</div>
+      <div>
+        <div class="brand-name">ACME</div>
+        <div class="brand-subtitle">People & Culture</div>
+      </div>
+    </div>
+
+    <div class="nav-section-label">WORKSPACE</div>
+
+    <a class="nav-item active" routerLink="/dashboard" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+      <mat-icon>dashboard</mat-icon>
+      <span>Dashboard</span>
+    </a>
+
+    <a class="nav-item" routerLink="/employees" routerLinkActive="active">
+      <mat-icon>groups</mat-icon>
+      <span>Employees</span>
+    </a>
+
+    <div class="sidebar-footer">
+      <mat-icon>business</mat-icon>
+      <div>
+        <div class="footer-title">ACME Corporation</div>
+        <div class="footer-subtitle">HR Administration</div>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar class="topbar">
+      <span class="breadcrumb">Workspace / Dashboard</span>
+      <span class="toolbar-spacer"></span>
+
+      <div class="admin-info">
+        <div class="admin-avatar">HR</div>
+        <div>
+          <div class="admin-name">HR Admin</div>
+          <div class="admin-role">Administrator</div>
+        </div>
+      </div>
+    </mat-toolbar>
+
+    <main class="route-content">
+      <router-outlet />
+    </main>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
