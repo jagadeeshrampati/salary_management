@@ -12,6 +12,7 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         component: Dashboard,
+        data: { breadcrumb: 'Dashboard' }
       },
       {
         path: '',
@@ -21,6 +22,7 @@ export const routes: Routes = [
       {
         path: 'employees',
         component: Employees,
+        data: { breadcrumb: 'Employees' }
       },
     ],
   },
