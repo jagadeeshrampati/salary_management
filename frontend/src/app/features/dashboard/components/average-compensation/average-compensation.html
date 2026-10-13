@@ -1,0 +1,30 @@
+
+<div class="chart-toolbar">
+  <label for="currency">Currency</label>
+
+  <select
+    id="currency"
+    [ngModel]="selectedCurrency()"
+    (ngModelChange)="selectedCurrency.set($event)"
+    [ngModelOptions]="{ standalone: true }"
+  >
+    @for (currency of currencies; track currency) {
+      <option [value]="currency">{{ currency }}</option>
+    }
+  </select>
+</div>
+
+@if (chartData().labels.length) {
+  <div class="chart-container">
+    <canvas
+      baseChart
+      [type]="chartType"
+      [data]="chartData()"
+      [options]="chartOptions"
+    ></canvas>
+  </div>
+} @else {
+  <div class="empty-state">
+    No compensation data available for {{ selectedCurrency() }}.
+  </div>
+}

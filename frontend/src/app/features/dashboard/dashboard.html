@@ -1,0 +1,145 @@
+
+<mat-sidenav-container class="app-layout">
+  <mat-sidenav class="app-sidebar" mode="side" opened>
+    <div class="brand">
+      <div class="brand-logo">A</div>
+      <div>
+        <div class="brand-name">ACME</div>
+        <div class="brand-subtitle">People & Culture</div>
+      </div>
+    </div>
+
+    <div class="nav-section-label">WORKSPACE</div>
+
+    <a class="nav-item active" routerLink="/dashboard">
+      <mat-icon>dashboard</mat-icon>
+      <span>Dashboard</span>
+    </a>
+
+    <a class="nav-item" routerLink="/employees">
+      <mat-icon>groups</mat-icon>
+      <span>Employees</span>
+    </a>
+
+    <div class="sidebar-footer">
+      <mat-icon>business</mat-icon>
+      <div>
+        <div class="footer-title">ACME Corporation</div>
+        <div class="footer-subtitle">HR Administration</div>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar class="topbar">
+      <span class="breadcrumb">Workspace / Dashboard</span>
+      <span class="toolbar-spacer"></span>
+
+      <div class="admin-info">
+        <div class="admin-avatar">HR</div>
+        <div>
+          <div class="admin-name">HR Admin</div>
+          <div class="admin-role">Administrator</div>
+        </div>
+      </div>
+    </mat-toolbar>
+
+    <main class="dashboard">
+      <section class="page-heading">
+        <div>
+          <h1>Dashboard</h1>
+          <p>Overview of your global workforce and compensation.</p>
+        </div>
+
+        <div class="updated-label">
+          <mat-icon>calendar_today</mat-icon>
+          <span>{{ today | date: 'dd MMM yyyy' }}</span>
+        </div>
+      </section>
+
+      @if (loading()) {
+        <div class="state-container">
+          <mat-spinner diameter="40" />
+          <p>Loading dashboard...</p>
+        </div>
+      } @else if (errorMessage()) {
+        <div class="state-container error-state">
+          <mat-icon>error_outline</mat-icon>
+          <p>{{ errorMessage() }}</p>
+          <button mat-flat-button color="primary" (click)="loadDashboard()">
+            Try again
+          </button>
+        </div>
+      } @else if (dashboard(); as data) {
+        <section class="summary-grid">
+          <mat-card class="summary-card">
+            <mat-card-content>
+              <div class="card-top">
+                <span class="card-label">Total Employees</span>
+                <mat-icon class="blue-icon">groups</mat-icon>
+              </div>
+              <div class="metric-value">
+                {{ totalEmployees() | number }}
+              </div>
+              <div class="metric-caption">Across all countries</div>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="summary-card">
+            <mat-card-content>
+              <div class="card-top">
+                <span class="card-label">Active Employees</span>
+                <mat-icon class="green-icon">person</mat-icon>
+              </div>
+              <div class="metric-value">
+                {{ activeEmployees() | number }}
+              </div>
+              <div class="metric-caption">Currently active</div>
+            </mat-card-content>
+          </mat-card>
+        </section>
+
+        <section class="chart-grid">
+          <mat-card class="chart-card">
+            <mat-card-header>
+              <mat-card-title>Headcount by Department</mat-card-title>
+              <mat-card-subtitle>Distribution across teams</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <app-headcount-department
+                [departments]="departmentHeadcount()"
+              />
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="chart-card">
+            <mat-card-header>
+              <mat-card-title>Headcount by Country</mat-card-title>
+              <mat-card-subtitle>Global workforce distribution</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <app-headcount-country
+                [countries]="countryHeadcount()"
+              />
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="chart-card compensation-card">
+            <mat-card-header>
+              <mat-card-title>Average Annual Compensation</mat-card-title>
+              <mat-card-subtitle>
+                Compare departments within each currency
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <app-average-compensation
+                [compensationData]="compensationByDepartment()"
+              />
+            </mat-card-content>
+          </mat-card>
+        </section>
+      }
+    </main>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
