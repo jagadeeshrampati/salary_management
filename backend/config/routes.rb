@@ -7,8 +7,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-
   namespace :api do
+    get "dashboard", to: "dashboard#show"
     resources :employees, only: [:index, :show] do
       resources :compensation_packages,
                 only: [:index, :create],
