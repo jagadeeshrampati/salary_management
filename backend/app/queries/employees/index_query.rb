@@ -41,8 +41,11 @@ module Employees
       pattern = "%#{Employee.sanitize_sql_like(search)}%"
 
       scope.where(
-        "employee_code ILIKE :pattern OR first_name ILIKE :pattern " \
-        "OR last_name ILIKE :pattern OR email ILIKE :pattern",
+        "employee_code ILIKE :pattern OR
+        first_name ILIKE :pattern OR
+        last_name ILIKE :pattern OR
+        email ILIKE :pattern OR
+        (first_name || ' ' || last_name) ILIKE :pattern",
         pattern: pattern
       )
     end
