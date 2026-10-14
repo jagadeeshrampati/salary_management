@@ -1,0 +1,179 @@
+:host {
+  display: block;
+}
+
+.employee-details-page {
+  padding: 28px;
+  color: #1e293b;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #1565c0;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.page-heading,
+.section-heading,
+.package-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.page-heading {
+  margin-bottom: 24px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+h2 {
+  margin: 0 0 20px;
+  font-size: 18px;
+}
+
+h3 {
+  margin: 10px 0;
+  font-size: 24px;
+}
+
+p {
+  color: #64748b;
+}
+
+.details-card,
+.package-card {
+  margin-bottom: 24px;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.details-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-wrap: anywhere;
+}
+
+.field-label,
+.package-label {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.status {
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+.status.active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.section-heading {
+  margin-bottom: 20px;
+}
+
+.section-heading h2 {
+  margin-bottom: 6px;
+}
+
+.section-heading p,
+.package-heading p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.primary-button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #1976d2;
+  color: #ffffff;
+  font: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.primary-button:hover {
+  background: #1565c0;
+}
+
+.currency {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.change-reason {
+  margin: 20px 0;
+  font-size: 14px;
+}
+
+.items-heading {
+  margin: 24px 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.component-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+}
+
+.component-row:last-child {
+  border-bottom: 0;
+}
+
+.page-state,
+.empty-state {
+  padding: 24px;
+  text-align: center;
+  color: #64748b;
+}
+
+.error-state {
+  color: #b91c1c;
+}
+
+@media (max-width: 640px) {
+  .employee-details-page {
+    padding: 16px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading,
+  .page-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

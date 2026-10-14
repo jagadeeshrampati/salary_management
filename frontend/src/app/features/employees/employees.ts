@@ -14,6 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { EmployeeService } from '../../core/services/employee';
 import { Employee, EmployeeFilters } from './employee.model';
 import { DecimalPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-employees',
@@ -30,6 +31,7 @@ import { DecimalPipe } from '@angular/common';
     MatSelectModule,
     MatSortModule,
     MatTableModule,
+    RouterLink,
   ],
   templateUrl: './employees.html',
   styleUrl: './employees.scss',
@@ -101,7 +103,6 @@ export class Employees {
       next: (response) => {
         this.employees.set(response.data);
         this.total = response.pagination.total;
-        console.log(response, 'employees response')
         this.loading.set(false);
       },
       error: (error) => {

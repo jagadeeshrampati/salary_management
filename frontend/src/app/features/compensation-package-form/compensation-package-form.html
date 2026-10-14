@@ -1,0 +1,169 @@
+<div class="compensation-form-page">
+  <a class="back-link" [routerLink]="['/employees', employeeId]">
+    ← Back to employee details
+  </a>
+
+  <header class="page-heading">
+    <div>
+      <h1>New Compensation Package</h1>
+      <p>Create a new annual compensation package for employee #{{ employeeId }}.</p>
+    </div>
+  </header>
+
+  @if (successMessage()) {
+    <div class="feedback success-feedback" role="status">
+      {{ successMessage() }}
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="feedback error-feedback" role="alert">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  <section class="form-card">
+    <form [formGroup]="form" (ngSubmit)="save()" novalidate>
+      <h2>Package Details</h2>
+
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="currency">Currency</label>
+          <select id="currency" formControlName="currency">
+            @for (currency of currencies; track currency.code) {
+              <option [value]="currency.code">{{ currency.label }}</option>
+            }
+          </select>
+          @if (form.controls.currency.touched && form.controls.currency.invalid) {
+            <small class="field-error">Select a currency.</small>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="effective_from">Effective from</label>
+          <input
+            id="effective_from"
+            type="date"
+            formControlName="effective_from"
+          />
+          @if (form.controls.effective_from.touched && form.controls.effective_from.invalid) {
+            <small class="field-error">Select an effective date.</small>
+          }
+        </div>
+
+        <div class="form-field full-width">
+          <label for="change_reason">Reason for change</label>
+          <input
+            id="change_reason"
+            type="text"
+            formControlName="change_reason"
+            placeholder="e.g. Annual salary revision"
+            maxlength="500"
+          />
+          @if (form.controls.change_reason.touched && form.controls.change_reason.invalid) {
+            <small class="field-error">
+              Enter a reason of up to 500 characters.
+            </small>
+          }
+        </div>
+      </div>
+
+      <h2 class="components-heading">Annual Compensation Components</h2>
+      <p class="section-description">
+        Enter annual amounts in the selected currency. Use zero for components
+        that do not apply.
+      </p>
+
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="basic_salary">Basic Salary *</label>
+          <input
+            id="basic_salary"
+            type="number"
+            min="0.01"
+            step="0.01"
+            formControlName="basic_salary"
+          />
+          @if (form.controls.basic_salary.touched && form.controls.basic_salary.invalid) {
+            <small class="field-error">Basic salary must be greater than zero.</small>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="hra">House Rent Allowance (HRA)</label>
+          <input
+            id="hra"
+            type="number"
+            min="0"
+            step="0.01"
+            formControlName="hra"
+          />
+          @if (form.controls.hra.touched && form.controls.hra.invalid) {
+            <small class="field-error">Enter zero or a positive amount.</small>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="special_allowance">Special Allowance</label>
+          <input
+            id="special_allowance"
+            type="number"
+            min="0"
+            step="0.01"
+            formControlName="special_allowance"
+          />
+          @if (form.controls.special_allowance.touched && form.controls.special_allowance.invalid) {
+            <small class="field-error">Enter zero or a positive amount.</small>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="performance_bonus">Performance Bonus</label>
+          <input
+            id="performance_bonus"
+            type="number"
+            min="0"
+            step="0.01"
+            formControlName="performance_bonus"
+          />
+          @if (form.controls.performance_bonus.touched && form.controls.performance_bonus.invalid) {
+            <small class="field-error">Enter zero or a positive amount.</small>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="employer_pf">Employer PF</label>
+          <input
+            id="employer_pf"
+            type="number"
+            min="0"
+            step="0.01"
+            formControlName="employer_pf"
+          />
+          @if (form.controls.employer_pf.touched && form.controls.employer_pf.invalid) {
+            <small class="field-error">Enter zero or a positive amount.</small>
+          }
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="button"
+          class="secondary-button"
+          (click)="cancel()"
+          [disabled]="saving()"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="primary-button"
+          [disabled]="saving()"
+        >
+          {{ saving() ? 'Saving...' : 'Create Package' }}
+        </button>
+      </div>
+    </form>
+  </section>
+</div>

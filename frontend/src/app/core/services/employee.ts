@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { EmployeeFilters, EmployeeListResponse } from '../../features/employees/employee.model';
+import { CompensationPackage, CompensationPackagesResponse, EmployeeDetailsResponse, EmployeeFilters, EmployeeListResponse } from '../../features/employees/employee.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -35,6 +35,39 @@ export class EmployeeService {
     }
 
     return this.http.get<EmployeeListResponse>(this.apiUrl, { params });
+  }
+
+  getEmployee(id: number): Observable<EmployeeDetailsResponse> {
+    return this.http.get<EmployeeDetailsResponse>(
+      `${environment.apiUrl}/employees/${id}`
+    );
+  }
+
+  getCompensationPackages(
+    employeeId: number
+  ): Observable<CompensationPackagesResponse> {
+    return this.http.get<CompensationPackagesResponse>(
+      `${environment.apiUrl}/employees/${employeeId}/compensation_packages`
+    );
+  }
+
+  createCompensationPackage(
+    employeeId: number,
+    payload: {
+      currency: string;
+      effective_from: string;
+      change_reason: string;
+      items: {
+        component_type: string;
+        category: string;
+        amount: string;
+      }[];
+    }
+  ): Observable<{ data: CompensationPackage }> {
+    return this.http.post<{ data: CompensationPackage }>(
+      `${environment.apiUrl}/employees/${employeeId}/compensation_packages`,
+      { compensation_package: payload }
+    );
   }
 }
 

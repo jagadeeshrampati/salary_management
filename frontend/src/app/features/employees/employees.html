@@ -91,7 +91,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
               Employee ID
             </th>
-            <td mat-cell *matCellDef="let employee">
+            <td mat-cell *matCellDef="let employee" class="employee-info" [routerLink]="['/employees', employee.id]">
               {{ employee.employee_code }}
             </td>
           </ng-container>
@@ -100,7 +100,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header="first_name">
               Employee
             </th>
-            <td mat-cell *matCellDef="let employee">
+            <td mat-cell *matCellDef="let employee" class="employee-info" [routerLink]="['/employees', employee.id]">
               <div class="employee-name">{{ employee.full_name }}</div>
               <div class="employee-email">{{ employee.email }}</div>
             </td>

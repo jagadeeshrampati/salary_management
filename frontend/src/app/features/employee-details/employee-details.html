@@ -1,0 +1,103 @@
+<div class="employee-details-page">
+  <a class="back-link" routerLink="/employees">← Back to employees</a>
+
+  @if (loading()) {
+    <div class="page-state">Loading employee details...</div>
+  } @else if (errorMessage()) {
+    <div class="page-state error-state">{{ errorMessage() }}</div>
+  } @else if (employee(); as emp) {
+    <section class="page-heading">
+      <div>
+        <h1>{{ emp.full_name }}</h1>
+        <p>{{ emp.employee_code }} · {{ emp.job_title }}</p>
+      </div>
+      <span class="status" [class.active]="emp.status === 'active'">
+        {{ emp.status.replace('_', ' ') }}
+      </span>
+    </section>
+
+    <section class="details-card">
+      <h2>Employee Information</h2>
+      <div class="details-grid">
+        <div>
+          <span class="field-label">Email</span>
+          <strong>{{ emp.email }}</strong>
+        </div>
+        <div>
+          <span class="field-label">Department</span>
+          <strong>{{ emp.department }}</strong>
+        </div>
+        <div>
+          <span class="field-label">Country</span>
+          <strong>{{ emp.country_code }}</strong>
+        </div>
+        <div>
+          <span class="field-label">Employee ID</span>
+          <strong>{{ emp.employee_code }}</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="compensation-section">
+      <div class="section-heading">
+        <div>
+          <h2>Compensation History</h2>
+          <p>Annual compensation packages and their effective dates.</p>
+        </div>
+        <button
+          type="button"
+          class="primary-button"
+          (click)="startNewPackage()"
+        >
+          Create Compensation Package
+        </button>
+      </div>
+
+      @if (packages().length === 0) {
+        <div class="details-card empty-state">
+          No compensation packages found for this employee.
+        </div>
+      } @else {
+        @for (pkg of sortedPackages(); track pkg.id) {
+          <article class="package-card">
+            <div class="package-heading">
+              <div>
+                <span class="package-label">
+                  {{ pkg.effective_to ? 'Historical Package' : 'Current Package' }}
+                </span>
+                <h3>
+                  {{ pkg.total_annual_compensation }}
+                  <span class="currency">{{ pkg.currency }}</span>
+                </h3>
+                <p>
+                  Effective {{ pkg.effective_from | date:'mediumDate' }}
+                  @if (pkg.effective_to) {
+                    – {{ pkg.effective_to | date:'mediumDate' }}
+                  } @else {
+                    – Present
+                  }
+                </p>
+              </div>
+            </div>
+
+            @if (pkg.change_reason) {
+              <p class="change-reason">
+                <strong>Reason:</strong> {{ pkg.change_reason }}
+              </p>
+            }
+
+            <div class="items-heading">Annual component breakdown</div>
+            <div class="component-list">
+              @for (item of pkg.items; track item.id) {
+                <div class="component-row">
+                  <span>{{ item.category }}</span>
+                  <strong>{{ item.amount }} {{ pkg.currency }}</strong>
+                </div>
+              }
+            </div>
+          </article>
+        }
+      }
+    </section>
+  }
+</div>

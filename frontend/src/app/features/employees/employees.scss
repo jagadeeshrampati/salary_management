@@ -314,6 +314,16 @@ mat-paginator {
   }
 }
 
+.employee-info {
+  cursor: pointer;
+  color: #1565c0;
+  font-weight: 600;
+}
+
+.employee-info:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 400px) {
   .employees-page {
     padding: 16px 10px;

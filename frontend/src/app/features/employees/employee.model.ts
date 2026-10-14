@@ -32,3 +32,28 @@ export interface EmployeeFilters {
   page: number;
   limit: number;
 }
+
+export interface CompensationItem {
+  id: number;
+  component_type: string;
+  category: string;
+  amount: string;
+}
+
+export interface CompensationPackage {
+  id: number;
+  currency: string;
+  effective_from: string;
+  effective_to: string | null;
+  change_reason: string | null;
+  total_annual_compensation: string;
+  items: CompensationItem[];
+}
+
+export interface EmployeeDetailsResponse {
+  data: Employee;
+}
+
+export interface CompensationPackagesResponse {
+  data: CompensationPackage[];
+}
