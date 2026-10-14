@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import {
   FormBuilder,
@@ -13,7 +12,7 @@ import { EmployeeService } from '../../core/services/employee';
 @Component({
   selector: 'app-compensation-package-form',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, DatePipe],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './compensation-package-form.html',
   styleUrl: './compensation-package-form.scss'
 })
