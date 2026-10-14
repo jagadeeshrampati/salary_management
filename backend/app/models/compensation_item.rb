@@ -1,4 +1,5 @@
 class CompensationItem < ApplicationRecord
+  audited
   COMPONENT_TYPES = %w[
     basic_salary
     hra

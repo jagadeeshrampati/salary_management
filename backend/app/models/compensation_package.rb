@@ -1,4 +1,5 @@
 class CompensationPackage < ApplicationRecord
+  audited
   normalizes :currency, with: ->(value) { value.strip.upcase }
 
   belongs_to :employee

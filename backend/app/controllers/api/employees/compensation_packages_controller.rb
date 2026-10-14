@@ -22,21 +22,24 @@ class Api::Employees::CompensationPackagesController < ApplicationController
 
     package = nil
 
+    admin = Admin.find_by!(email: "admin@acme.example")
+
     ActiveRecord::Base.transaction do
-      current_package = employee.compensation_packages
-                                .where(effective_to: nil)
-                                .order(effective_from: :desc)
-                                .first
-
-      # Close the previous package when the new one takes effect.
-      current_package&.update!(
-        effective_to: attributes[:effective_from]
-      )
-
-      package = employee.compensation_packages.create!(attributes)
-
-      items.each do |item|
-        package.compensation_items.create!(item)
+      Audited.audit_class.as_user(admin) do
+        current_package = employee.compensation_packages
+                                  .where(effective_to: nil)
+                                  .order(effective_from: :desc)
+                                  .first
+  
+        # Close the previous package when the new one takes effect.
+        current_package&.update!(
+          effective_to: attributes[:effective_from]
+        )
+        package = employee.compensation_packages.create!(attributes)
+  
+        items.each do |item|
+          package.compensation_items.create!(item)
+        end
       end
     end
 

@@ -28,5 +28,13 @@ module Backend
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # Audited tries to record the change in the audits table. During serialization, Psych encounters a below objects and rejects it because the class is not permitted for safe YAML dumping.
+    config.active_record.yaml_column_permitted_classes = [
+      Symbol,
+      Date,
+      Time,
+      BigDecimal
+    ]
   end
 end
