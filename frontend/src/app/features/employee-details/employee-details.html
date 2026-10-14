@@ -90,7 +90,7 @@
             <div class="component-list">
               @for (item of pkg.items; track item.id) {
                 <div class="component-row">
-                  <span>{{ item.category }}</span>
+                  <span>{{ item.component_type.replace('_', ' ') | titlecase}}</span>
                   <strong>{{ item.amount }} {{ pkg.currency }}</strong>
                 </div>
               }
